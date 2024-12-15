@@ -1,0 +1,98 @@
+<html>
+    <head></head>
+    <style>
+        #root {
+            background-color: aqua;
+            color: white;
+            font-size: 2em;
+            text-align: center;
+            height: 100vh;
+        }
+    </style>
+    <body>
+        <!-- INI KONTEN -->
+        <div id="root">
+            <input type=text placeholder="username" id="usernameInput"/>
+            <input type="password" placeholder="password" id="passwordInput"/>
+            <button onclick="onlogin()" id="loginButton">LOGIN</button>
+            <button onclick="onlogout()" id="logoutButton">LOGOUT</button>
+            <br/>
+             <h1 id="admin">LOGIN SEBAGAI ADMIN</h1>
+             <h2 id="basic">LOGIN SEBAGAI USER BIASA</h2>
+             <h3 id="special">LOGIN SEEBAGAI ORANG SPECIAL</h3>
+        </div>
+
+        <script type="application/javascript">
+
+            let usernameInput = document.getElementById('usernameInput');
+            let passwordInput = document.getElementById('passwordInput');
+            let loginButton = document.getElementById('loginButton');
+            let logoutButton = document.getElementById('logoutButton');
+            let admin = document.getElementById('admin');
+            let basic = document.getElementById('basic');
+            let special = document.getElementById('special');
+
+            admin.style.display ="none";
+            basic.style.display ="none";
+            logoutButton.style.display ="none";
+            special.style.display ="none";
+
+          function onlogin() {
+            localStorage.setItem("username", usernameInput.value);
+            logoutButton.style.display = "block"
+        
+            if (usernameInput.value == "admin" && passwordInput.value == "admin123") { 
+                usernameInput.style.display = "none";
+                passwordInput.style.display = "none";
+                loginButton.style.display = "none";
+                localStorage.setItem("role", admin);
+                admin.style.display ="block";
+                basic.style.display ="none";
+                special.style.display ="none";
+            } else if (usernameInput.value == "special" && passwordInput.value == "special123") {
+                usernameInput.style.display = "none";
+                passwordInput.style.display = "none";
+                loginButton.style.display = "none";
+                localStorage.setItem("role", special);
+                admin.style.display ="none";
+                basic.style.display ="none";
+                special.style.display ="block";
+            } else {
+                usernameInput.style.display = "none";
+                passwordInput.style.display = "none";
+                loginButton.style.display = "none";
+                localStorage.setItem("role", basic);
+                admin.style.display ="none";
+                basic.style.display ="block";
+                special.style.display ="none";
+            }
+          }
+
+          if(localStorage.getItem('username')) {
+            logoutButton.style.display = "block";
+            usernameInput.style.display = "none";
+            passwordInput.style.display = "none";
+            loginButton.style.display = "none";
+            if(localStorage.getItem("role") == "admin") {
+                admin.style.display = "block"
+                basic.style.display = "none"
+                special.style.display = "none"
+            } else if (localStorage.getItem("role") == "special") {
+                admin.style.display = "none"
+                basic.style.display = "none"
+                special.style.display = "block"
+            } else {
+                admin.style.display = "none"
+                basic.style.display = "block"
+                special.style.display = "none"
+            }
+          }
+
+          function onlogout() {
+            localStorage.clear();
+            location.reload();
+          }
+
+        </script>
+    </body>
+</html>
